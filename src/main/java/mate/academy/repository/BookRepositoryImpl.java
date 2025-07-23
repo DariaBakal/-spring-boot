@@ -1,21 +1,18 @@
 package mate.academy.repository;
 
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import mate.academy.exceptions.DataProcessingException;
 import mate.academy.model.Book;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
     private final SessionFactory sessionFactory;
-
-    @Autowired
-    public BookRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     public Book save(Book book) {
@@ -31,7 +28,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Can't add book to the DB: " + book, e);
+            throw new DataProcessingException("Can't add book to the DB: " + book, e);
         } finally {
             if (session != null) {
                 session.close();
@@ -44,7 +41,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("SELECT b from Book b", Book.class).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't find any book in the DB", e);
+            throw new DataProcessingException("Can't find any book in the DB", e);
         }
     }
 }
