@@ -1,12 +1,9 @@
-package mate.academy.service;
+package com.example.bookstore.service;
 
+import com.example.bookstore.model.Book;
+import com.example.bookstore.repository.BookRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.dto.BookDto;
-import mate.academy.dto.CreateBookRequestDto;
-import mate.academy.mapper.BookMapper;
-import mate.academy.model.Book;
-import mate.academy.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 @Service
