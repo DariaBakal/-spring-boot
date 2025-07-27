@@ -1,4 +1,4 @@
-package mate.academy.exceptions;
+package com.example.bookstore.exception;
 
 public class DataProcessingException extends RuntimeException {
     public DataProcessingException(String message,Throwable cause) {

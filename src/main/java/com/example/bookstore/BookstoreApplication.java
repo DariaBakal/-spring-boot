@@ -1,8 +1,8 @@
-package mate.academy;
+package com.example.bookstore;
 
+import com.example.bookstore.model.Book;
+import com.example.bookstore.service.BookService;
 import java.math.BigDecimal;
-import mate.academy.model.Book;
-import mate.academy.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
