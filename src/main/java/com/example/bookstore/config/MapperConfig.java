@@ -1,7 +1,8 @@
-package mate.academy.config;
+package com.example.bookstore.config;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.NullValueCheckStrategy;
+
 @org.mapstruct.MapperConfig (
         componentModel = "spring",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
