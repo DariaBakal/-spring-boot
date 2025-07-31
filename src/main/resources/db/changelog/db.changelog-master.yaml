@@ -40,3 +40,5 @@ databaseChangeLog:
               - column:
                   name: cover_image
                   type: VARCHAR(500)
+  - include:
+      file: db/changelog/changes/01-add-isdeleted-column-to-book.yaml
