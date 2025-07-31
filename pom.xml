@@ -71,6 +71,11 @@
 			<artifactId>liquibase-core</artifactId>
 			<version>4.33.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>4.31.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -119,6 +124,14 @@
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
 					<sourceDirectories>src</sourceDirectories>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>4.31.1</version>
+				<configuration>
+					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
 				</configuration>
 			</plugin>
 		</plugins>
