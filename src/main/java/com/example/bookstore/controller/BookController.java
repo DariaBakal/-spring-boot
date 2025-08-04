@@ -45,7 +45,6 @@ public class BookController {
         bookService.deleteById(id);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public BookDto updateBook(@PathVariable Long id, @RequestBody UpdateBookRequestDto requestDto) {
         return bookService.updateBook(id, requestDto);
