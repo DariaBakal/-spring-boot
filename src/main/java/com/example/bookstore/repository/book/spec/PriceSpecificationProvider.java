@@ -1,0 +1,36 @@
+package com.example.bookstore.repository.book.spec;
+
+import com.example.bookstore.dto.PriceRange;
+import com.example.bookstore.model.Book;
+import com.example.bookstore.repository.SpecificationProvider;
+import java.math.BigDecimal;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
+
+@Component
+public class PriceSpecificationProvider implements SpecificationProvider<Book> {
+
+    @Override
+    public String getKey() {
+        return "price";
+    }
+
+    @Override
+    public Specification<Book> getSpecification(Object params) {
+        PriceRange range = (PriceRange) params;
+        BigDecimal priceFrom = range.priceFrom();
+        BigDecimal priceTo = range.priceTo();
+        return (root, query, criteriaBuilder) -> {
+            if (priceFrom != null && priceTo != null) {
+                return criteriaBuilder.between(root.get("price"), priceFrom, priceTo);
+            } else if (priceFrom != null) {
+                return criteriaBuilder.greaterThanOrEqualTo(root.get("price"), priceFrom);
+            } else if (priceTo != null) {
+                return criteriaBuilder.lessThanOrEqualTo(root.get("price"), priceTo);
+            } else {
+                return criteriaBuilder.conjunction();
+            }
+        };
+    }
+}
+
