@@ -23,11 +23,11 @@ public class PriceSpecificationProvider implements SpecificationProvider<Book> {
         BigDecimal priceTo = range.priceTo();
         return (root, query, criteriaBuilder) -> {
             if (priceFrom != null && priceTo != null) {
-                return criteriaBuilder.between(root.get("price"), priceFrom, priceTo);
+                return criteriaBuilder.between(root.get(PRICE_KEY), priceFrom, priceTo);
             } else if (priceFrom != null) {
-                return criteriaBuilder.greaterThanOrEqualTo(root.get("price"), priceFrom);
+                return criteriaBuilder.greaterThanOrEqualTo(root.get(PRICE_KEY), priceFrom);
             } else if (priceTo != null) {
-                return criteriaBuilder.lessThanOrEqualTo(root.get("price"), priceTo);
+                return criteriaBuilder.lessThanOrEqualTo(root.get(PRICE_KEY), priceTo);
             } else {
                 return criteriaBuilder.conjunction();
             }

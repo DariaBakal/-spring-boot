@@ -18,7 +18,7 @@ public class TitleSpecificationProvider implements SpecificationProvider<Book> {
     public Specification<Book> getSpecification(Object params) {
         String titlePart = (String) params;
         return (root, query, criteriaBuilder) -> criteriaBuilder.like(
-                criteriaBuilder.lower(root.get("title")),
+                criteriaBuilder.lower(root.get(TITLE_KEY)),
                 "%" + titlePart.toLowerCase() + "%"
         );
     }
