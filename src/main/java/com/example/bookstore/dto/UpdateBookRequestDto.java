@@ -19,7 +19,6 @@ public class UpdateBookRequestDto {
     @NotNull
     @Positive
     private BigDecimal price;
-    @NotBlank
     private String description;
     @Image
     private String coverImage;

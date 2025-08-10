@@ -11,6 +11,6 @@ public class ImageValidator implements ConstraintValidator<Image, String> {
 
     @Override
     public boolean isValid(String imageUrl, ConstraintValidatorContext constraintValidatorContext) {
-        return imageUrl != null && Pattern.compile(PATTERN_OF_IMAGE).matcher(imageUrl).matches();
+        return imageUrl == null || Pattern.compile(PATTERN_OF_IMAGE).matcher(imageUrl).matches();
     }
 }
