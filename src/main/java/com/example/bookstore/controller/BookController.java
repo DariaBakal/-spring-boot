@@ -5,7 +5,6 @@ import com.example.bookstore.dto.BookSearchParameters;
 import com.example.bookstore.dto.CreateBookRequestDto;
 import com.example.bookstore.dto.UpdateBookRequestDto;
 import com.example.bookstore.service.BookService;
-import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
