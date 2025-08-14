@@ -1,4 +1,4 @@
-package com.example.bookstore.dto;
+package com.example.bookstore.dto.book;
 
 import com.example.bookstore.validation.image.Image;
 import com.example.bookstore.validation.isbn.Isbn;

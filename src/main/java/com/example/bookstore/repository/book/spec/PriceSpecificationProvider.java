@@ -1,6 +1,6 @@
 package com.example.bookstore.repository.book.spec;
 
-import com.example.bookstore.dto.PriceRange;
+import com.example.bookstore.dto.book.PriceRange;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.SpecificationProvider;
 import java.math.BigDecimal;
