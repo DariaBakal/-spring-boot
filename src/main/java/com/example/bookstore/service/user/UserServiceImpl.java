@@ -20,13 +20,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponseDto register(UserRegistrationRequestDto requestDto)
             throws RegistrationException {
-        if (userRepository.findByEmail(requestDto.getEmail()).isPresent()) {
+        if (userRepository.existsByEmail(requestDto.getEmail())) {
             throw new RegistrationException(
                     "This email: %s is already in use.".formatted(requestDto.getEmail()));
         }
 
         User user = userMapper.toModel(requestDto);
-        User savedUser = userRepository.save(user);
-        return userMapper.toDto(savedUser);
+        userRepository.save(user);
+        return userMapper.toDto(user);
     }
 }
