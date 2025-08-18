@@ -11,8 +11,6 @@ public class UserRegistrationRequestDto {
     @NotBlank
     private String email;
     @Password
-    @NotBlank //inside @Password I already checking for the field being not blank, still need to
-    // add @NotBlank though?
     private String password;
     @NotBlank
     private String repeatPassword;
