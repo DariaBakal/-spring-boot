@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get all books",
             description = "Get a paginated and sortable list of all available books")
     public Page<BookDto> getAll(Pageable pageable) {
@@ -37,6 +39,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get book by ID", description = "Get a book by its unique identifier")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
@@ -44,6 +47,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new book",
             description = "Create a new book with the provided details")
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
@@ -52,6 +56,7 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete book by ID",
             description = "Delete a book from the database by its unique identifier")
     public void delete(@PathVariable Long id) {
@@ -59,6 +64,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Update an existing book",
             description = "Update the details of an existing book by its unique identifier")
@@ -68,6 +74,7 @@ public class BookController {
     }
 
     @GetMapping("/search")
+    @PreAuthorize("hasRole('USER')")
     @Operation(
             summary = "Search books",
             description = "Search for books by various parameters (e.g., title, author) with "
