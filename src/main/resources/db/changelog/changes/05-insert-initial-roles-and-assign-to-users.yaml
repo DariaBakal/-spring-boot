@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: DariaBakal
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: id, value: 1 }
+              - column: { name: name, value: 'USER' }
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: name, value: 'ADMIN' }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, value: 1001 }
+              - column: { name: email, value: 'admin@bookstore.com' }
+              - column: { name: password, value: '$2a$12$USAGN2CevS.cuIFjwM.QQ.Y3AGodOYtG.isw3WveeGr4foInMASM.' }
+              - column: { name: first_name, value: 'System' }
+              - column: { name: last_name, value: 'Admin' }
+              - column: { name: shipping_address, value: 'Admin Office' }
+              - column: { name: is_deleted, valueBoolean: FALSE }
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column: { name: user_id, value: 1001 }
+              - column: { name: role_id, value: 2 }
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column: { name: user_id, value: 1001 }
+              - column: { name: role_id, value: 1 }
