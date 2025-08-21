@@ -1,7 +1,7 @@
 package com.example.bookstore.service.user;
 
+import com.example.bookstore.dto.user.UserRegisterResponseDto;
 import com.example.bookstore.dto.user.UserRegistrationRequestDto;
-import com.example.bookstore.dto.user.UserResponseDto;
 import com.example.bookstore.exception.RegistrationException;
 import com.example.bookstore.mapper.UserMapper;
 import com.example.bookstore.model.Role;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponseDto register(UserRegistrationRequestDto requestDto)
+    public UserRegisterResponseDto register(UserRegistrationRequestDto requestDto)
             throws RegistrationException {
         if (userRepository.existsByEmail(requestDto.getEmail())) {
             throw new RegistrationException(
