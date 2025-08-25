@@ -1,6 +1,7 @@
 package com.example.bookstore.service.book;
 
 import com.example.bookstore.dto.book.BookDto;
+import com.example.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.example.bookstore.dto.book.BookSearchParameters;
 import com.example.bookstore.dto.book.CreateBookRequestDto;
 import com.example.bookstore.dto.book.UpdateBookRequestDto;
@@ -62,5 +63,11 @@ public class BookServiceImpl implements BookService {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(searchParameters);
         return bookRepository.findAll(bookSpecification, pageable)
                 .map(bookMapper::toDto);
+    }
+
+    @Override
+    public Page<BookDtoWithoutCategoryIds> findBooksByCategoryId(Long id, Pageable pageable) {
+        return bookRepository.findAllByCategoriesId(id, pageable)
+                .map(bookMapper::toDtoWithoutCategories);
     }
 }

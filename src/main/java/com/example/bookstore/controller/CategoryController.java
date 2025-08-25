@@ -1,6 +1,10 @@
 package com.example.bookstore.controller;
 
-import com.example.bookstore.dto.book.BookDto;;
+import com.example.bookstore.dto.book.BookDtoWithoutCategoryIds;
+import com.example.bookstore.dto.category.CategoryDto;
+import com.example.bookstore.dto.category.CreateCategoryRequestDto;
+import com.example.bookstore.dto.category.UpdateCategoryRequestDto;
+import com.example.bookstore.service.book.BookService;
 import com.example.bookstore.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+;
+
 @Tag(name = "Category management", description = "Endpoints for managing categories")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
+    private final BookService bookService;
 
     @GetMapping
     @PreAuthorize("hasRole('USER')")
@@ -37,16 +44,19 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
-    @Operation(summary = "Get category by ID", description = "Get a category by its unique identifier")
+    @Operation(summary = "Get category by ID",
+            description = "Get a category by its unique identifier")
     public CategoryDto getCategoryById(@PathVariable Long id) {
         return categoryService.findById(id);
     }
 
     @GetMapping("/{id}/books")
     @PreAuthorize("hasRole('USER')")
-    @Operation(summary = "Get books by category", description = "Get a list of books by category id")
-    public List<BookDtoWithoutCategoryIds> getBookByCategoryId(@PathVariable Long id) {
-        return categoryService.findBookByCategoryId(id);
+    @Operation(summary = "Get books by category",
+            description = "Get a list of books by category id")
+    public Page<BookDtoWithoutCategoryIds> getBooksByCategoryId(@PathVariable Long id,
+            Pageable pageable) {
+        return bookService.findBooksByCategoryId(id, pageable);
     }
 
     @PostMapping
@@ -64,7 +74,7 @@ public class CategoryController {
             summary = "Update an existing category",
             description = "Update the details of an existing category by its unique identifier")
     public CategoryDto updateCategory(@PathVariable Long id,
-            @RequestBody @Valid UpdateCategoryDto requestDto) {
+            @RequestBody @Valid UpdateCategoryRequestDto requestDto) {
         return categoryService.updateCategory(id, requestDto);
     }
 
