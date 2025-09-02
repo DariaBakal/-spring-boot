@@ -3,6 +3,7 @@ package com.example.bookstore.model;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,12 +29,23 @@ import org.hibernate.annotations.SQLRestriction;
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //when I am changing as suggested to:
+    //    @Id
+    //    private Long id;
+    //    @MapsId
+    //    @OneToOne(fetch = FetchType.LAZY)
+    //    @JoinColumn(name = "user_id", nullable = false)
+    // i am getting SQLIntegrityConstraintViolationException
+    // Cannot add or update a child row: a foreign key constraint fails (`bookstore_app`.`
+    // cart_items`,CONSTRAINT `fk_cart_items_shopping_carts` FOREIGN KEY (`shopping_cart_id`)
+    // REFERENCES `shopping_carts` (`id`))
+
     private Long id;
-    @OneToOne(optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartItem> cartItems = new HashSet<>();
-    @Column(name = "is_deleted", nullable = false)
+    @Column(nullable = false)
     private boolean isDeleted = false;
 }
