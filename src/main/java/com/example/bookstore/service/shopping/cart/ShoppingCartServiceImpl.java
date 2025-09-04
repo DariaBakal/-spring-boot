@@ -26,26 +26,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart addBookToCart(User user, AddBookToCartRequestDto requestDto) {
         ShoppingCart userShoppingCart = shoppingCartRepository.findByUserId(user.getId());
+        Book bookFromDb = bookRepository.findById(requestDto.getBookId()).orElseThrow(
+                () -> new EntityNotFoundException(
+                        "No book found with id: " + requestDto.getBookId()));
+
         Optional<CartItem> existingCartItem = userShoppingCart.getCartItems().stream()
                 .filter(b -> b.getBook().getId().equals(requestDto.getBookId()))
                 .findFirst();
+        CartItem cartItem;
         if (existingCartItem.isPresent()) {
-            CartItem cartItem = existingCartItem.get();
+            cartItem = existingCartItem.get();
             int currentQuantity = cartItem.getQuantity();
             cartItem.setQuantity(currentQuantity + requestDto.getQuantity());
-            cartItemRepository.save(cartItem);
         } else {
-            Book bookFromDb = bookRepository.findById(requestDto.getBookId()).orElseThrow(
-                    () -> new EntityNotFoundException(
-                            "No book found with id: " + requestDto.getBookId()));
-
-            CartItem cartItem = new CartItem();
+            cartItem = new CartItem();
             cartItem.setBook(bookFromDb);
             cartItem.setQuantity(requestDto.getQuantity());
             cartItem.setShoppingCart(userShoppingCart);
             userShoppingCart.getCartItems().add(cartItem);
-            cartItemRepository.save(cartItem);
         }
+        cartItemRepository.save(cartItem);
         return userShoppingCart;
     }
 

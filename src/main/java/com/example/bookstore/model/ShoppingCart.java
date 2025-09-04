@@ -4,10 +4,9 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -28,19 +27,8 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "shopping_carts")
 public class ShoppingCart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //when I am changing as suggested to:
-    //    @Id
-    //    private Long id;
-    //    @MapsId
-    //    @OneToOne(fetch = FetchType.LAZY)
-    //    @JoinColumn(name = "user_id", nullable = false)
-    // i am getting SQLIntegrityConstraintViolationException
-    // Cannot add or update a child row: a foreign key constraint fails (`bookstore_app`.`
-    // cart_items`,CONSTRAINT `fk_cart_items_shopping_carts` FOREIGN KEY (`shopping_cart_id`)
-    // REFERENCES `shopping_carts` (`id`))
-
     private Long id;
+    @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
