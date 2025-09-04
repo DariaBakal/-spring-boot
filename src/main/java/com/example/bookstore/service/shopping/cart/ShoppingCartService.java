@@ -14,4 +14,6 @@ public interface ShoppingCartService {
             UpdateQuantityRequestDto requestDto);
 
     void removeBook(User user, Long cartItemId);
+
+    ShoppingCart createShoppingCart(User user);
 }
