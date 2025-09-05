@@ -60,7 +60,7 @@ public class OrderController {
         return orderService.getOrderItems(user, orderId, pageable);
     }
 
-    @GetMapping("/{orderId}/items/{id}")
+    @GetMapping("/{orderId}/items/{itemId}")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get order item by id",
             description = "Retrieves item by id from the order with the specified id")
@@ -70,7 +70,7 @@ public class OrderController {
         return orderService.getOrderItemById(user, orderId, itemId);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{orderId}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update order status",
             description = "Updates the status of a specific order ")

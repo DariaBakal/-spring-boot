@@ -7,7 +7,6 @@ import com.example.bookstore.dto.order.UpdateStatusRequestDto;
 import com.example.bookstore.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
 
 public interface OrderService {
     OrderDto placeOrder(User user, PlaceOrderRequestDto requestDto);
