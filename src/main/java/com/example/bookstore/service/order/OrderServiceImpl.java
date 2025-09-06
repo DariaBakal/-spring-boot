@@ -6,6 +6,7 @@ import com.example.bookstore.dto.order.PlaceOrderRequestDto;
 import com.example.bookstore.dto.order.UpdateStatusRequestDto;
 import com.example.bookstore.exception.EntityNotFoundException;
 import com.example.bookstore.exception.InvalidStatusTransitionException;
+import com.example.bookstore.exception.OrderProcessingException;
 import com.example.bookstore.mapper.OrderItemMapper;
 import com.example.bookstore.mapper.OrderMapper;
 import com.example.bookstore.model.CartItem;
@@ -50,7 +51,8 @@ public class OrderServiceImpl implements OrderService {
         ShoppingCart userCart = shoppingCartRepository.findByUserId(user.getId());
         Set<CartItem> cartItems = userCart.getCartItems();
         if (cartItems.isEmpty()) {
-            throw new EntityNotFoundException("Shopping Cart can't be empty");
+            throw new OrderProcessingException(
+                    "Shopping cart is empty for user with id: " + user.getId());
         }
         Set<OrderItem> orderItems = cartItems.stream()
                 .map(orderItemMapper::toOrderItem)

@@ -15,7 +15,5 @@ public interface OrderItemMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "order", ignore = true)
     @Mapping(target = "price", source = "book.price")
-    @Mapping(target = "book", source = "book")
-    @Mapping(target = "quantity", source = "quantity")
     OrderItem toOrderItem(CartItem cartItem);
 }
