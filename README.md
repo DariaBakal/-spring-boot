@@ -9,7 +9,8 @@ It can be run either via Maven or using Docker Compose for containerized deploym
 ---
 
 ## Table of Contents
-- [Features](#features)  
+- [Features](#features) 
+- [Database Model](#database-model) 
 - [Tech Stack](#tech-stack)  
 - [Installation](#installation)  
   - [Run with Docker Compose](#run-with-docker-compose)  
@@ -33,34 +34,50 @@ It can be run either via Maven or using Docker Compose for containerized deploym
 - 📦 Order creation & tracking  
 - 🔐 Role-based access control  
 - 🗄️ Database versioning with Liquibase  
-- 🐳 Containerized with Docker & Docker Compose  
+- 🐳 Containerized with Docker & Docker Compose 
+
+---
+
+## Database Model
+Here is a diagram of the application's data model:
+
+![Bookstore API Database Model](docs/BookstoreAPI_model_diagram.png)
 
 ---
 
 ## Tech Stack
-- **Backend:** Java 17+, Spring Boot  
-- **Build Tool:** Maven  
-- **Database:** MySQL  
-- **Database Migration:** Liquibase  
+- **Backend:** Java 17, Spring Boot 3.5.3 
+- **Build Tool:** Maven 3.3.0
+- **Database:** MySQL 8.4.0
+- **Database Migration:** Liquibase 4.33.0
 - **Authentication:** JWT (JSON Web Tokens)  
 - **Containerization:** Docker, Docker Compose  
-- **Code Quality:** Checkstyle  
+- **Code Quality:** Checkstyle 3.3.0
+- **Additional Libraries:** Lombok 1.18.38, MapStruct 1.6.3, Testcontainers 1.21.3, jjwt 0.12.7
 
 ---
 
 ## Installation
 
 ### Run with Docker Compose
-1. Copy the environment template:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DariaBakal/bookstore-api
+   ```
+2. Navigate into the project directory:
+   ```bash
+   cd bookstore-api
+   ```
+3. Copy the environment template:
    ```bash
    cp .env.template .env
    ```
-2. Update `.env` with your configuration (DB credentials, ports, etc.).
-3. Build and run:
+4. Update `.env` with your configuration (DB credentials, ports, etc.).
+5. Build and run:
    ```bash
    docker-compose up --build
    ```
-4. The API will be available at:  
+6. The API will be available at:  
    👉 [http://localhost:8080](http://localhost:8080)
 
 ---
